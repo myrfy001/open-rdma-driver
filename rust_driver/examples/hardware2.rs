@@ -1,3 +1,4 @@
+use core::time;
 use eui48::MacAddress;
 use log::{debug, info};
 use open_rdma_driver::{
@@ -8,7 +9,7 @@ use open_rdma_driver::{
     },
     Device, HugePage, Mr, Pd,
 };
-use std::net::Ipv4Addr;
+use std::{net::Ipv4Addr, thread};
 
 use crate::common::init_logging;
 
@@ -93,7 +94,7 @@ fn main() {
     //     create_and_init_card(1, qpn, &b_network, &a_network);
     let dpqn = qpn;
     for (idx, item) in mr_buffer_a.iter_mut().enumerate() {
-        *item = idx as u8;
+        *item = 0;
     }
     // for item in mr_buffer_b[0..].iter_mut() {
     //     *item = 0
@@ -115,6 +116,16 @@ fn main() {
     //     SEND_CNT.try_into().unwrap(),
     //     mr_a.get_key(),
     // );
+
+    loop {
+        for (idx, item) in mr_buffer_a.iter().enumerate() {
+            print!("{:x}", *item);
+            if idx > 16 {
+                break;
+            }
+        }
+        thread::sleep(time::Duration::from_secs(1));
+    }
 
     // test write
     let ctx1 = dev_a

@@ -121,7 +121,7 @@ fn main() {
         .lock()
         .read_line(&mut peer_mem_info_str)
         .expect("wait input error");
-    let splited_params_strs = peer_mem_info_str.split(",").collect::<Vec<_>>();
+    let splited_params_strs = peer_mem_info_str.trim().split(",").collect::<Vec<_>>();
     let raddr = splited_params_strs[0].parse::<u64>().unwrap();
     let rkey = Key::new(splited_params_strs[1].parse::<u32>().unwrap());
 
