@@ -63,7 +63,7 @@ fn create_and_init_card<'a>(
 fn main() {
     init_logging().unwrap();
 
-    let a_network = RdmaDeviceNetworkParamBuilder::default()
+    let b_network = RdmaDeviceNetworkParamBuilder::default()
         .gateway(Ipv4Addr::new(127, 0, 0, 0x1))
         .netmask(Ipv4Addr::new(255, 0, 0, 0))
         .ipaddr(Ipv4Addr::new(127, 0, 0, 2))
@@ -74,7 +74,7 @@ fn main() {
 
     debug!("===========1====================");
 
-    let b_network = RdmaDeviceNetworkParamBuilder::default()
+    let a_network = RdmaDeviceNetworkParamBuilder::default()
         .gateway(Ipv4Addr::new(127, 0, 0, 0x1))
         .netmask(Ipv4Addr::new(255, 0, 0, 0))
         .ipaddr(Ipv4Addr::new(127, 0, 0, 3))
